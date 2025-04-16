@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Preview Dataset - SmartEDA{% endblock %}
+
+{% block content %}
+<div class="section">
+  <h2>🔍 Dataset Preview</h2>
+  
+  <p><strong>Total Rows:</strong> {{ info.rows }}</p>
+  <p><strong>Total Columns:</strong> {{ info.columns }}</p>
+  <p><strong>Target Variable:</strong> {{ info.target_var }} {% if info.target_valid %}✅{% else %}❌ Not Found{% endif %}</p>
+
+  <h3>🧬 Column Names</h3>
+  <ul>
+    {% for col in info.column_names %}
+      <li>{{ col }}</li>
+    {% endfor %}
+  </ul>
+
+  <h3>📌 Missing Values Summary</h3>
+  <ul>
+    {% for col, val in info.missing_summary.items() %}
+      {% if val > 0 %}
+        <li>{{ col }} → {{ val }} missing</li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+
+  <h3>📐 Data Types</h3>
+  <ul>
+    {% for col, dtype in info.dtypes.items() %}
+      <li>{{ col }} : {{ dtype }}</li>
+    {% endfor %}
+  </ul>
+
+  <h3>📊 First 10 Rows</h3>
+  <div class="data-preview">
+    {{ preview_data|safe }}
+  </div>
+
+  <br>
+  <div style="text-align: center;">
+    <a href="{{ url_for('eda') }}" class="start-button">➡ Continue to EDA</a>
+  </div>
+</div>
+{% endblock %}

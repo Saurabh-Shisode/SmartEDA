@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Model Results - SmartEDA{% endblock %}
+
+{% block content %}
+<div class="section">
+  <h2 style="text-align: center; margin-bottom: 10px;">🤖 Machine Learning Model Results</h2>
+  <p style="text-align: center; font-size: 17px;">
+    The following models were trained using grid search, cross-validation, and evaluated on a test set:
+  </p>
+
+  {% if session.task_type == 'classification' and session.confusion_matrix %}
+  <div style="text-align: center; margin: 15px 0 25px;">
+    <span style="font-size: 18px; color: #004d40; font-weight: bold;">
+      🌟 Best Performing Model: {{ session.confusion_matrix.model }}
+    </span>
+  </div>
+  {% elif session.task_type == 'regression' %}
+  <div style="text-align: center; margin: 15px 0 25px;">
+    <span style="font-size: 18px; color: #004d40; font-weight: bold;">
+      🌟 Best Performing Model (Regression): Automatically selected by R² Score
+    </span>
+  </div>
+  {% endif %}
+
+  <div class="results-grid">
+    {% for name, result in results.items() %}
+      <div class="result-card {% if session.task_type == 'classification' and session.confusion_matrix.model == name %}highlight-best{% endif %}">
+        <h3 class="model-title">
+          {% if session.task_type == 'classification' and session.confusion_matrix.model == name %}🏆{% endif %} {{ name }}
+        </h3>
+        <p><strong>Best Parameters:</strong></p>
+        <pre>{{ result.best_params | tojson(indent=2) }}</pre>
+
+        <p><strong>Cross-Validation Score:</strong> 
+          <span class="score">{{ '%.4f'|format(result.cross_val_score) }}</span>
+        </p>
+
+        <p><strong>Test Set Metrics:</strong></p>
+        <ul class="metrics">
+          {% if session.task_type == 'regression' %}
+            <li>🧮 R² Score: <strong>{{ '%.4f'|format(result.test_metrics.r2) }}</strong></li>
+            <li>📉 MAE: <strong>{{ '%.4f'|format(result.test_metrics.mae) }}</strong></li>
+            <li>📏 MSE: <strong>{{ '%.4f'|format(result.test_metrics.mse) }}</strong></li>
+            <li>📊 RMSE: <strong>{{ '%.4f'|format(result.test_metrics.rmse) }}</strong></li>
+          {% else %}
+            <li>✅ Accuracy: <strong>{{ '%.4f'|format(result.test_metrics.accuracy) }}</strong></li>
+            <li>📐 Precision: <strong>{{ '%.4f'|format(result.test_metrics.precision) }}</strong></li>
+            <li>🔁 Recall: <strong>{{ '%.4f'|format(result.test_metrics.recall) }}</strong></li>
+            <li>📊 F1 Score: <strong>{{ '%.4f'|format(result.test_metrics.f1) }}</strong></li>
+          {% endif %}
+        </ul>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% if session.task_type == 'classification' and session.confusion_matrix %}
+  <div class="section" style="margin-top: 60px; margin-bottom: 80px;">
+    <h3 style="text-align: center; font-size: 22px; margin-bottom: 24px;">
+      🧩 Confusion Matrix of Best Performing Model — 
+      <span style="color: #007bff;">{{ session.confusion_matrix.model_name }}</span>
+    </h3>
+
+    <div style="display: flex; justify-content: center;">
+      <table class="confusion-matrix">
+        <thead>
+          <tr>
+            <th>Actual / Predicted</th>
+            {% for label in session.confusion_matrix.labels %}
+              <th>{{ label }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in range(session.confusion_matrix.matrix|length) %}
+          <tr>
+            <td><strong>{{ session.confusion_matrix.labels[i] }}</strong></td>
+            {% for val in session.confusion_matrix.matrix[i] %}
+              <td class="conf-cell">{{ val }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="center-buttons">
+    <a href="{{ url_for('download_model_bundle') }}" class="download-btn">📦 Download Model + Scaler (.zip)</a>
+    <a href="{{ url_for('download_pdf') }}" class="download-btn">📥 Download Full PDF Report</a>
+    <a href="{{ url_for('index') }}" class="start-button">🏠 Back to Home</a>
+  </div>
+</div>
+{% endblock %}

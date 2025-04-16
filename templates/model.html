@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Train ML Models - SmartEDA{% endblock %}
+
+{% block content %}
+<div class="model-container">
+  <h2>🚀 Build Machine Learning Models</h2>
+  <p class="model-description">
+    Based on your dataset, SmartEDA will run multiple machine learning models with hyperparameter tuning and cross-validation.
+    The best-performing model will be selected automatically, and you’ll be able to download it for use.
+  </p>
+
+  <form action="{{ url_for('model') }}" method="get">
+    <button type="submit" class="start-button">🏁 Start Training</button>
+  </form>
+
+  <div class="note-box">
+    ⏳ This may take a few moments. Please don’t refresh or close the browser.
+  </div>
+</div>
+{% endblock %}

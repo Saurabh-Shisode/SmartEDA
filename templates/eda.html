@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}EDA Results - SmartEDA{% endblock %}
+
+{% block content %}
+<div class="section">
+  <h2>📊 Exploratory Data Analysis Results</h2>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <a href="{{ url_for('download_all_plots') }}" class="download-btn" style="background-color: #28a745;">⬇ Download All Plots (.zip)</a>
+  </div>
+
+  {% if plot_paths|length == 0 %}
+    <p style="color: red; font-weight: bold;">No plots were generated. Please verify your dataset and target variable.</p>
+  {% else %}
+    <div class="plot-gallery" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 30px; justify-items: center;">
+      {% for plot in plot_paths %}
+        <div class="plot-card" style="text-align: center;">
+          <img src="{{ url_for('static', filename='plots/' + plot.split('/')[-1]) }}" alt="EDA Plot" style="max-width: 100%; border: 1px solid #ddd; border-radius: 8px;">
+          <br>
+          <a href="{{ url_for('static', filename='plots/' + plot.split('/')[-1]) }}" class="download-btn green" download style="margin-top: 10px;">⬇ Download This Plot</a>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <hr style="margin: 50px auto; max-width: 80%;">
+
+  <!-- 🧠 Model Selection Section -->
+  <div class="model-section" style="text-align: center;">
+    <h3 style="font-size: 24px; margin-bottom: 20px;">🧠 <span style="font-size: 22px;">Select Models to Train</span></h3>
+
+    <form method="POST" action="{{ url_for('model') }}" onsubmit="showModelLoader()">
+      <!-- Radio buttons for task type -->
+      <div class="model-selection" style="margin-bottom: 20px; font-size: 18px;">
+        <label style="margin-right: 20px;">
+          <input type="radio" name="task_type" value="classification" checked onchange="toggleModelOptions()"> Classification
+        </label>
+        <label>
+          <input type="radio" name="task_type" value="regression" onchange="toggleModelOptions()"> Regression
+        </label>
+      </div>
+      
+      <!-- Classification Models -->
+      <div id="classification-models" class="model-selection" style="margin-bottom: 20px; font-size: 18px;">
+        <label style="margin-right: 30px;">
+          <input type="checkbox" name="models" value="Random Forest" checked>
+          <i class="fas fa-tree" style="color: #28a745; margin-right: 6px;"></i> Random Forest
+        </label>
+        <label style="margin-right: 30px;">
+          <input type="checkbox" name="models" value="Logistic Regression" checked>
+          <i class="fas fa-chart-line" style="color: #007bff; margin-right: 6px;"></i> Logistic Regression
+        </label>
+        <label>
+          <input type="checkbox" name="models" value="SVM" checked>
+          <i class="fas fa-wave-square" style="color: #6f42c1; margin-right: 6px;"></i> SVM
+        </label>
+      </div>
+      
+      <!-- Regression Models -->
+      <div id="regression-models" class="model-selection" style="margin-bottom: 20px; font-size: 18px; display: none;">
+        <label style="margin-right: 30px;">
+          <input type="checkbox" name="models" value="Linear Regression" checked>
+          <i class="fas fa-chart-line" style="color: #f39c12; margin-right: 6px;"></i> Linear Regression
+        </label>
+        <label style="margin-right: 30px;">
+          <input type="checkbox" name="models" value="Random Forest Regressor">
+          <i class="fas fa-tree" style="color: #1abc9c; margin-right: 6px;"></i> Random Forest Regressor
+        </label>
+        <label>
+          <input type="checkbox" name="models" value="SVR">
+          <i class="fas fa-wave-square" style="color: #8e44ad; margin-right: 6px;"></i> Support Vector Regressor (SVR)
+        </label>
+      </div>
+    
+      <!-- Buttons -->
+      <div style="margin-bottom: 10px;">
+        <button type="submit" class="start-button">🤖 Build Model</button>
+        <a href="{{ url_for('rebuild_model') }}" class="start-button" style="background-color: #7c4dff;">🔄 Rebuild Model</a>
+      </div>
+      <div style="color: red; font-weight: 500;">⚠ Training all models may take longer time.</div>
+
+      <!-- Animated loader -->
+      <div id="modelLoader" style="display:none; margin-top: 20px;">
+        <p style="font-weight: bold; font-size: 16px;">🔧 Building your model</p>
+        <div class="dot-loader">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </form>
+
+    <div style="margin-top: 40px;">
+      <a href="{{ url_for('eda_report') }}" class="download-btn dark">📄 View EDA Summary Report</a>
+    </div>
+  </div>
+</div>
+
+<!-- Animation Script -->
+<script>
+  function showModelLoader() {
+    document.getElementById("modelLoader").style.display = "block";
+  }
+
+  function toggleModelOptions() {
+    const isClassification = document.querySelector('input[name="task_type"]:checked').value === 'classification';
+    document.getElementById("classification-models").style.display = isClassification ? "block" : "none";
+    document.getElementById("regression-models").style.display = isClassification ? "none" : "block";
+  }
+
+  // Ensure correct display on page load (in case of page refresh)
+  window.onload = toggleModelOptions;
+</script>
+{% endblock %}

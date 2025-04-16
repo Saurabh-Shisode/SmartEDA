@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{% block title %}SmartEDA{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <h1>
+        📊 SmartEDA
+        {% if session.task_type %}
+          <span class="task-badge">
+            {% if session.task_type == 'regression' %}
+              🔢 Regression
+            {% else %}
+              🧮 Classification
+            {% endif %}
+          </span>
+        {% endif %}
+      </h1>
+
+      {% if request.path != '/' %}
+        <div class="nav-top-buttons">
+          <a href="javascript:history.back()" class="nav-button">← Back</a>
+          <a href="javascript:history.forward()" class="nav-button">→ Forward</a>
+        </div>
+      {% endif %}
+    </div>
+  </header>
+
+  <main class="container">
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2025 SmartEDA. All rights reserved.</p>
+  </footer>
+</body>
+</html>

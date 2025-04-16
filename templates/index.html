@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome - SmartEDA{% endblock %}
+
+{% block content %}
+  <div class="section" style="text-align: center; padding-top: 60px; position: relative;">
+
+    {% if has_dataset %}
+      <!-- Resume Button at Top Left -->
+      <a href="{{ url_for('preview') }}"
+          class="start-button"
+          title="Continue where you left off"
+          style="position: absolute; top: 20px; left: 20px; font-size: 16px; padding: 10px 20px; transition: all 0.3s ease;">
+        🔄 Resume Your Work
+      </a>
+
+    {% endif %}
+
+    <h2 style="font-size: 36px; margin-bottom: 20px;">Welcome to SmartEDA 🌟</h2>
+    <p style="font-size: 20px; max-width: 800px; margin: 0 auto; line-height: 1.6;">
+      Discover insights effortlessly with SmartEDA — your intelligent assistant for automated data analysis and machine learning.
+      Upload your dataset, explore patterns, visualize trends, and build models all in one streamlined workflow.
+    </p>
+    <br><br>
+
+    {% if has_dataset %}
+      <!-- Start Over if session exists -->
+      <a href="{{ url_for('reset') }}" class="start-button" style="font-size: 20px; padding: 16px 32px;">🔁 Start Over</a>
+    {% else %}
+      <!-- Start if no session -->
+      <a href="{{ url_for('upload') }}" class="start-button" style="font-size: 20px; padding: 16px 32px;">🚀 Start</a>
+    {% endif %}
+
+  </div>
+{% endblock %}

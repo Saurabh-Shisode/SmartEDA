@@ -1,0 +1,710 @@
+/* Base styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Typography */
+h1, h2, h3 {
+  color: #222;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* Buttons */
+.start-button, .download-btn, .nav-button {
+  background-color: #0066cc;
+  color: white;
+  padding: 14px 28px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
+  margin: 12px 16px 0 0;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.start-button:hover, .download-btn:hover, .nav-button:hover {
+  background-color: #004c99;
+}
+
+/* Back/Forward Buttons */
+.back-forward-buttons {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.back-forward-buttons a {
+  margin-right: 12px;
+  background-color: #e0e0e0;
+  color: #333;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.back-forward-buttons a:hover {
+  background-color: #ccc;
+}
+
+/* Spinner Overlay */
+.spinner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  font-size: 18px;
+  color: #333;
+}
+
+.spinner {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #0077cc;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+
+  .start-button, .download-btn, .nav-button {
+    padding: 12px 24px;
+    font-size: 0.9rem;
+  }
+
+  .back-forward-buttons a {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.result-card {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.06);
+  transition: transform 0.2s;
+}
+
+.result-card:hover {
+  transform: translateY(-4px);
+}
+
+.result-card h3 {
+  margin-top: 0;
+  color: #0066cc;
+}
+
+.result-card ul {
+  list-style: none;
+  padding-left: 0;
+  line-height: 1.7;
+}
+
+.result-card pre {
+  background: #f4f4f4;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.home-container {
+  text-align: center;
+  padding: 80px 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.highlight {
+  color: #0077cc;
+  font-weight: bold;
+}
+
+.intro-text {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin: 30px 0;
+  color: #555;
+}
+
+
+.model-container {
+  padding: 40px 30px;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.model-description {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  color: #444;
+  line-height: 1.6;
+}
+
+.note-box {
+  margin-top: 20px;
+  padding: 15px;
+  border-left: 6px solid #0077cc;
+  background-color: #f0f8ff;
+  font-size: 1rem;
+  color: #333;
+  display: inline-block;
+}
+
+.site-header {
+  background-color: #004c99;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+}
+
+.site-header h1 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.back-forward-buttons {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.back-forward-buttons a {
+  margin-right: 12px;
+  background-color: #ffffff;
+  color: #004c99;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.back-forward-buttons a:hover {
+  background-color: #e0e0e0;
+}
+
+.site-footer {
+  text-align: center;
+  padding: 20px;
+  margin-top: 60px;
+  color: #777;
+  font-size: 0.95rem;
+}
+
+/* Style for pandas .to_html() preview tables */
+table.data {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+table.data th,
+table.data td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+table.data th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+.nav-top-buttons {
+  display: flex;
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 10px 20px;
+}
+
+.nav-button {
+  background-color: #005cbf;
+  color: white;
+  font-weight: bold;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 16px;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+  background-color: #003f8a;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+
+.start-button:hover {
+  background-color: #004fa3;
+  transform: scale(1.05);
+}
+
+
+.plot-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.plot-card {
+  flex: 0 0 calc(50% - 20px);
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.plot-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+/* Highlight individual download buttons in a different color (green here) */
+.plot-card .download-btn {
+  display: inline-block;
+  background-color: #28a745;
+  color: white;
+  font-weight: bold;
+  padding: 8px 16px;
+  margin-top: 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.plot-card .download-btn:hover {
+  background-color: #1e7e34;
+}
+
+.download-btn {
+  background-color: #005cbf;
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 6px;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+.download-btn:hover {
+  background-color: #003f8a;
+}
+
+.plot-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 30px;
+  justify-items: center;
+}
+
+.confusion-matrix {
+  width: auto;
+  margin: 0 auto;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+.confusion-matrix th, .confusion-matrix td {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+.confusion-matrix th {
+  background-color: #f2f2f2;
+}
+
+.results-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.result-card {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+  width: 350px;
+  transition: transform 0.2s ease;
+}
+
+.result-card:hover {
+  transform: translateY(-5px);
+}
+
+.model-title {
+  color: #0074d9;
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.metrics {
+  list-style: none;
+  padding-left: 0;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.confusion-matrix {
+  margin: 0 auto;
+  border-collapse: collapse;
+  font-size: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.confusion-matrix th,
+.confusion-matrix td {
+  border: 1px solid #ddd;
+  padding: 10px 16px;
+  text-align: center;
+}
+
+.conf-cell {
+  background-color: #f0f8ff;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.confusion-matrix tr:hover .conf-cell {
+  background-color: #d4eaff;
+}
+
+.center-buttons {
+  margin-bottom: 100px;
+}
+
+.download-btn, .start-button {
+  font-size: 16px;
+  padding: 14px 28px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.results-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.result-card {
+  background: #fefefe;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 20px 24px;
+  width: 300px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: transform 0.2s;
+}
+
+.result-card:hover {
+  transform: scale(1.02);
+}
+
+.highlight-best {
+  border: 2px solid #00c853;
+  box-shadow: 0 0 12px rgba(0,200,83,0.3);
+}
+
+.model-title {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #01579b;
+}
+
+.metrics {
+  list-style: none;
+  padding-left: 0;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.confusion-matrix {
+  border-collapse: collapse;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.confusion-matrix th, .confusion-matrix td {
+  padding: 10px 16px;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+.conf-cell {
+  background: #e3f2fd;
+  font-weight: bold;
+}
+
+.loader-section {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.loader-text {
+  font-size: 20px;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.dot-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.dot-loader span {
+  width: 12px;
+  height: 12px;
+  background-color: #007bff;
+  border-radius: 50%;
+  display: inline-block;
+  animation: pulse 1s infinite ease-in-out;
+}
+
+.dot-loader span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dot-loader span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes pulse {
+  0%, 80%, 100% {
+    transform: scale(0.8);
+    opacity: 0.6;
+  }
+  40% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+.section {
+  padding: 40px 60px;
+  background: #fff;
+  border-radius: 8px;
+  margin: 30px auto;
+  max-width: 1100px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+h2, h3 {
+  color: #343a40;
+}
+
+.start-button, .download-btn {
+  display: inline-block;
+  margin: 10px;
+  padding: 14px 28px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.start-button:hover,
+.download-btn:hover {
+  background-color: #0056b3;
+  color: white;
+}
+
+.download-btn.green {
+  background-color: #28a745;
+}
+
+.download-btn.dark {
+  background-color: #343a40;
+}
+
+.download-btn.red {
+  background-color: #dc3545;
+}
+
+.plot-gallery {
+  margin-top: 20px;
+}
+
+.result-card {
+  background: #f4f4f4;
+  padding: 20px;
+  margin: 20px;
+  border-left: 6px solid #007bff;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.result-card:hover {
+  transform: scale(1.02);
+}
+
+.highlight-best {
+  border-left: 6px solid #28a745 !important;
+  background-color: #e7f9f1;
+}
+
+.metrics {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 12px;
+}
+
+.metrics li {
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+
+.confusion-matrix {
+  border-collapse: collapse;
+  margin-top: 20px;
+  min-width: 400px;
+  background-color: #fff;
+}
+
+.confusion-matrix th,
+.confusion-matrix td {
+  border: 1px solid #ccc;
+  padding: 8px 14px;
+  text-align: center;
+}
+
+.conf-cell {
+  font-weight: bold;
+}
+
+.center-buttons {
+  text-align: center;
+  margin-top: 40px;
+}
+
+/* Loader Animation (dot) */
+.dot-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dot-loader span {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin: 4px;
+  background-color: #007bff;
+  border-radius: 50%;
+  animation: bounce 0.8s infinite ease-in-out;
+}
+
+.dot-loader span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dot-loader span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
+}
+
+/* PDF preview */
+.data-preview {
+  max-height: 400px;
+  overflow-x: auto;
+  background: #fff;
+  padding: 12px;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+}
+
+.task-badge {
+  font-size: 16px;
+  background-color: #17a2b8;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
